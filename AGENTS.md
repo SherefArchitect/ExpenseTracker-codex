@@ -1,27 +1,31 @@
-# Expense Tracker development guide
+# Project-wide development rules
 
-This repository is a personal Expense Tracker with a Metronic React frontend and an ASP.NET Core Web API targeting .NET 10.
+## Working practices
 
-## Structure
-- `frontend/src/features/expenses`: first feature, API client and expense page.
-- `frontend/src/components/ui`: existing Metronic/ReUI components; reuse these before introducing alternatives.
-- `frontend/src/components/layouts/layout-1`: active responsive application shell.
-- `frontend/src/config/expense-tracker.config.tsx`: application navigation.
-- `backend/ExpenseTracker.Api/Features/Expenses`: endpoint, model and persistence code.
-- Other Metronic layouts and demo files remain as development references; do not add them to application navigation by default.
+- Read the existing project structure and relevant code before making changes.
+- Preserve unrelated user changes.
+- Do not install, remove, or upgrade dependencies without user approval.
+- Do not run commands that modify unrelated files without user approval.
+- Do not commit or push unless explicitly requested.
 
-## Local development
-- Frontend: `cd frontend`, `npm ci`, `npm run dev` (use `npm.cmd` in PowerShell if script execution is restricted).
-- Backend: `dotnet run --project backend/ExpenseTracker.Api` on `http://localhost:5080`.
-- Vite proxies `/api` to the backend. Keep backend requests in the feature API client.
-- Verify frontend changes with `npm run build` and targeted ESLint checks without `--fix`.
-- Verify backend changes with `dotnet build backend/ExpenseTracker.Api` and HTTP checks for changed endpoints, including validation failures.
+## Frontend
 
-## Conventions
-- Organize application code by feature; keep components typed and reuse Metronic styling, layout, accessibility and theme support.
-- Keep API contracts aligned with TypeScript models. Show loading, empty, failure and saving states.
-- Validate all writes on the server. Use decimal for amounts and DateOnly for expense dates.
-- The initial app uses SAR and local JSON persistence in `App_Data/expenses.json`. This is a single-process local bootstrap, not a database or authenticated multi-user service.
-- Do not silently discard or reset expense data. Keep local expense data, build outputs, secrets and dependencies out of Git.
-- Database, authentication, budgets, recurring expenses and multi-currency support require explicit design when added.
-- Preserve unrelated user changes. Do not commit, publish or deploy unless requested.
+- Preserve the existing React, TypeScript, Vite, and Metronic stack.
+- Reuse existing Metronic components where appropriate.
+- Keep UI presentation components thin; separate business logic and data access from presentation.
+
+## Backend
+
+- Use ASP.NET Core Web API on .NET 10 with Clean Architecture.
+- Keep project dependencies directed inward: Application references Domain; Infrastructure references Application and Domain; API references Application and Infrastructure.
+- Keep business rules in Domain and use-case orchestration in Application.
+- Keep controllers thin and use Program.cs as the composition root.
+- Keep Dapper and SQL Server access in Infrastructure. All backend database operations must use SQL Server stored procedures through Dapper.
+- Never use Entity Framework Core.
+- Never use inline SQL in application code.
+
+## Verification
+
+- Build and verify affected projects before declaring a task complete.
+- For changes that do not affect executable code, verify the changed files directly.
+- Report any verification failures or checks that could not be completed.
