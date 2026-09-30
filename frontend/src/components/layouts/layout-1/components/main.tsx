@@ -50,7 +50,7 @@ export function Main() {
       <div className="wrapper flex grow flex-col">
         <Header />
 
-        <main className="grow pt-5" role="content">
+        <main className="grow pt-5">
           <Outlet />
         </main>
 

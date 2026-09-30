@@ -5,12 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc -b && vite build",
     "lint": "eslint src --fix",
     "format": "prettier --write .",
-    "preview": "vite preview",
-    "create-demo-user": "tsx scripts/create-demo-user.js",
-    "debug-auth": "tsx scripts/debug-auth.js"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",

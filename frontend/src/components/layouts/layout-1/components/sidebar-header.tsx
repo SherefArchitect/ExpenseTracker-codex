@@ -14,7 +14,7 @@ export function SidebarHeader() {
 
   return (
     <div className="sidebar-header hidden lg:flex items-center relative justify-between px-3 lg:px-6 shrink-0">
-      <Link to="/layout-1">
+      <Link to="/" aria-label="Expense Tracker home">
         <div className="dark:hidden">
           <img
             src={toAbsoluteUrl('/media/app/default-logo.svg')}
@@ -42,6 +42,7 @@ export function SidebarHeader() {
       </Link>
       <Button
         onClick={handleToggleClick}
+        aria-label={sidebarCollapse ? 'Expand sidebar' : 'Collapse sidebar'}
         size="sm"
         mode="icon"
         variant="outline"
