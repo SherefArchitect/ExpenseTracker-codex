@@ -1,12 +1,13 @@
 import { Fragment } from 'react';
+import { useLocalizedMenu } from '@/i18n/use-localized-menu';
 import { ChevronRight } from 'lucide-react';
 import { useLocation } from 'react-router';
-import { MENU_SIDEBAR } from '@/config/layout-1.config';
 import { MenuItem } from '@/config/types';
 import { cn } from '@/lib/utils';
 import { useMenu } from '@/hooks/use-menu';
 
 export function Breadcrumb() {
+  const MENU_SIDEBAR = useLocalizedMenu();
   const { pathname } = useLocation();
   const { getBreadcrumb, isActive } = useMenu(pathname);
   const items: MenuItem[] = getBreadcrumb(MENU_SIDEBAR);
@@ -31,7 +32,7 @@ export function Breadcrumb() {
             </span>
             {!last && (
               <ChevronRight
-                className="size-3.5 text-muted-foreground"
+                className="size-3.5 text-muted-foreground rtl:rotate-180"
                 key={`separator-${index}`}
               />
             )}

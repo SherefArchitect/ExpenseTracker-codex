@@ -1,3 +1,4 @@
+import { LocaleProvider } from '@/i18n/locale-provider';
 import { AppRouting } from '@/routing/app-routing';
 import { ThemeProvider } from 'next-themes';
 import { HelmetProvider } from 'react-helmet-async';
@@ -18,8 +19,10 @@ export function App() {
     >
       <HelmetProvider>
         <BrowserRouter basename={BASE_URL}>
-          <Toaster />
-          <AppRouting />
+          <LocaleProvider>
+            <Toaster />
+            <AppRouting />
+          </LocaleProvider>
         </BrowserRouter>
       </HelmetProvider>
     </ThemeProvider>

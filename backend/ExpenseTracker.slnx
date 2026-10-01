@@ -5,4 +5,7 @@
     <Project Path="src/ExpenseTracker.Infrastructure/ExpenseTracker.Infrastructure.csproj" />
     <Project Path="src/ExpenseTracker.Api/ExpenseTracker.Api.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/ExpenseTracker.Verification/ExpenseTracker.Verification.csproj" />
+  </Folder>
 </Solution>

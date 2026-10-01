@@ -1,4 +1,5 @@
 ﻿import { useState } from 'react';
+import { useLocale, useText } from '@/i18n/locale-provider';
 import { Menu, Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { Link } from 'react-router-dom';
@@ -16,6 +17,8 @@ import {
 import { SidebarMenu } from './sidebar-menu';
 
 export function Header() {
+  const t = useText();
+  const { locale, setLocale } = useLocale();
   const [menuOpen, setMenuOpen] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
   const scrollPosition = useScrollPosition();
@@ -36,18 +39,19 @@ export function Header() {
                 <Button
                   variant="ghost"
                   mode="icon"
-                  aria-label="Open navigation"
+                  aria-label={t('shell.open')}
                 >
                   <Menu />
                 </Button>
               </SheetTrigger>
               <SheetContent
                 side="left"
+                closeLabel={t('categories.cancel')}
                 className="p-0 gap-0 w-[275px]"
                 aria-describedby={undefined}
               >
                 <SheetHeader className="p-5">
-                  <SheetTitle>Expense Tracker</SheetTitle>
+                  <SheetTitle>{t('app.name')}</SheetTitle>
                 </SheetHeader>
                 <SheetBody className="p-0" onClick={() => setMenuOpen(false)}>
                   <SidebarMenu />
@@ -56,17 +60,34 @@ export function Header() {
             </Sheet>
           </div>
           <Link to="/" className="font-semibold">
-            Expense Tracker
+            {t('app.name')}
           </Link>
         </div>
-        <Button
-          variant="ghost"
-          mode="icon"
-          aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
-          onClick={() => setTheme(isDark ? 'light' : 'dark')}
-        >
-          {isDark ? <Sun /> : <Moon />}
-        </Button>
+        <div className="flex items-center gap-2">
+          <select
+            aria-label={t('shell.language')}
+            value={locale}
+            onChange={(event) =>
+              setLocale(event.target.value === 'ar' ? 'ar' : 'en')
+            }
+            className="h-9 rounded-md border border-input bg-background px-2 text-sm"
+          >
+            <option value="en" lang="en">
+              English
+            </option>
+            <option value="ar" lang="ar">
+              العربية
+            </option>
+          </select>
+          <Button
+            variant="ghost"
+            mode="icon"
+            aria-label={t(isDark ? 'shell.light' : 'shell.dark')}
+            onClick={() => setTheme(isDark ? 'light' : 'dark')}
+          >
+            {isDark ? <Sun /> : <Moon />}
+          </Button>
+        </div>
       </div>
     </header>
   );

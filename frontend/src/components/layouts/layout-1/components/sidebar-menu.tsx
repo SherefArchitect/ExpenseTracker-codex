@@ -1,8 +1,8 @@
 'use client';
 
 import { JSX, useCallback } from 'react';
+import { useLocalizedMenu } from '@/i18n/use-localized-menu';
 import { Link, useLocation } from 'react-router-dom';
-import { MENU_SIDEBAR } from '@/config/layout-1.config';
 import { MenuConfig, MenuItem } from '@/config/types';
 import { cn } from '@/lib/utils';
 import {
@@ -19,6 +19,7 @@ import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
 export function SidebarMenu() {
+  const MENU_SIDEBAR = useLocalizedMenu();
   const { pathname } = useLocation();
 
   // Memoize matchPath to prevent unnecessary re-renders

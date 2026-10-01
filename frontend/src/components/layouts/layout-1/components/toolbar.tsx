@@ -1,7 +1,7 @@
 import { Fragment, ReactNode } from 'react';
+import { useLocalizedMenu } from '@/i18n/use-localized-menu';
 import { ChevronRight } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
-import { MENU_SIDEBAR } from '@/config/layout-1.config';
 import { MenuItem } from '@/config/types';
 import { cn } from '@/lib/utils';
 import { useMenu } from '@/hooks/use-menu';
@@ -24,6 +24,7 @@ function ToolbarActions({ children }: { children?: ReactNode }) {
 }
 
 function ToolbarBreadcrumbs() {
+  const MENU_SIDEBAR = useLocalizedMenu();
   const { pathname } = useLocation();
   const { getBreadcrumb, isActive } = useMenu(pathname);
   const items: MenuItem[] = getBreadcrumb(MENU_SIDEBAR);
@@ -61,7 +62,7 @@ function ToolbarBreadcrumbs() {
                 </span>
               )}
               {!isLast && (
-                <ChevronRight className="size-3.5 muted-foreground" />
+                <ChevronRight className="size-3.5 muted-foreground rtl:rotate-180" />
               )}
             </Fragment>
           );
@@ -71,11 +72,12 @@ function ToolbarBreadcrumbs() {
   );
 }
 
-function ToolbarHeading ({ children }: { children: ReactNode }) {
+function ToolbarHeading({ children }: { children: ReactNode }) {
   return <div className="flex flex-col justify-center gap-2">{children}</div>;
 }
 
-function ToolbarPageTitle ({ children }: { children?: string }) {
+function ToolbarPageTitle({ children }: { children?: string }) {
+  const MENU_SIDEBAR = useLocalizedMenu();
   const { pathname } = useLocation();
   const { getCurrentItem } = useMenu(pathname);
   const item = getCurrentItem(MENU_SIDEBAR);
@@ -85,14 +87,21 @@ function ToolbarPageTitle ({ children }: { children?: string }) {
       {children ? children : item?.title || 'Untitled'}
     </h1>
   );
-};
+}
 
-function ToolbarDescription ({ children }: { children: ReactNode }) {
+function ToolbarDescription({ children }: { children: ReactNode }) {
   return (
     <div className="flex items-center gap-2 text-sm font-normal text-secondary-foreground">
       {children}
     </div>
   );
-};
+}
 
-export { Toolbar, ToolbarActions, ToolbarBreadcrumbs, ToolbarHeading, ToolbarPageTitle, ToolbarDescription };
+export {
+  Toolbar,
+  ToolbarActions,
+  ToolbarBreadcrumbs,
+  ToolbarHeading,
+  ToolbarPageTitle,
+  ToolbarDescription,
+};

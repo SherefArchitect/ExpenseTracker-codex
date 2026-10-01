@@ -1,3 +1,4 @@
+import { useText } from '@/i18n/locale-provider';
 import { ChevronFirst } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { toAbsoluteUrl } from '@/lib/helpers';
@@ -6,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { useLayout } from './context';
 
 export function SidebarHeader() {
+  const t = useText();
   const { sidebarCollapse, setSidebarCollapse } = useLayout();
 
   const handleToggleClick = () => {
@@ -14,35 +16,35 @@ export function SidebarHeader() {
 
   return (
     <div className="sidebar-header hidden lg:flex items-center relative justify-between px-3 lg:px-6 shrink-0">
-      <Link to="/" aria-label="Expense Tracker home">
+      <Link to="/" aria-label={t('shell.home')}>
         <div className="dark:hidden">
           <img
             src={toAbsoluteUrl('/media/app/default-logo.svg')}
             className="default-logo h-[22px] max-w-none"
-            alt="Default Logo"
+            alt={t('app.name')}
           />
           <img
             src={toAbsoluteUrl('/media/app/mini-logo.svg')}
             className="small-logo h-[22px] max-w-none"
-            alt="Mini Logo"
+            alt=""
           />
         </div>
         <div className="hidden dark:block">
           <img
             src={toAbsoluteUrl('/media/app/default-logo-dark.svg')}
             className="default-logo h-[22px] max-w-none"
-            alt="Default Dark Logo"
+            alt={t('app.name')}
           />
           <img
             src={toAbsoluteUrl('/media/app/mini-logo.svg')}
             className="small-logo h-[22px] max-w-none"
-            alt="Mini Logo"
+            alt=""
           />
         </div>
       </Link>
       <Button
         onClick={handleToggleClick}
-        aria-label={sidebarCollapse ? 'Expand sidebar' : 'Collapse sidebar'}
+        aria-label={t(sidebarCollapse ? 'shell.expand' : 'shell.collapse')}
         size="sm"
         mode="icon"
         variant="outline"
